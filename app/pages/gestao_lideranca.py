@@ -1,6 +1,4 @@
 import streamlit as st
-import pandas as pd
-from controllers.colaborador_controller import ColaboradorController
 from controllers.feedback_controller import FeedbackController
 
 # configurações da página
