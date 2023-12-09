@@ -6,13 +6,7 @@ load_dotenv()
 
 class Database:
     def __init__(self):
-        self.connection = pg.connect(
-            host=os.getenv("DB_HOST"),
-            port=os.getenv("DB_PORT"),
-            user=os.getenv("DB_USER"),
-            password=os.getenv("DB_PASSWORD"),
-            database=os.getenv("DB_DATABASE")
-        )
+        self.connection = pg.connect(os.getenv("DATABASE_URL"))
 
         self.cursor = self.connection.cursor()
 
