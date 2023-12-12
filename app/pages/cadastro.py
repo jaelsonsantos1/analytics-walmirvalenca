@@ -9,6 +9,9 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
+gestores_lista = sorted(['', 'Gilberto', 'Wellington', 'Joana', 'Joanir', 'Walmir', 'Alberto', 'Juvenal'])
+alocacoes_lista = sorted(['', 'Jurídico', 'Relacionamento', 'Santana', 'Financeiro', 'Administrativo', 'Itapipoca', 'Garanhuns'])
+
 idAlteracao = st.experimental_get_query_params()
 st.experimental_set_query_params()
 
@@ -27,9 +30,6 @@ with st.form(key='form-cadastro', clear_on_submit=True):
         )
 
         col1, col2 = st.columns(2)
-        gestores_lista = ['', 'Gilberto', 'Wellington', 'Joana', 'Joanir']
-        alocacoes_lista = ['', 'Jurídico', 'Relacionamento', 'Santana', 'Financeiro', 'Administrativo', 'Itapipoca', 'Garanhuns']
-
         nome = col1.text_input('Nome', key='nome', help='Digite o nome do colaborador', max_chars=100, value=dadoRecuperado['nome'][0])
         idade = col2.number_input('Idade', key='idade', help='Digite a idade do colaborador', min_value=0, max_value=100, value=dadoRecuperado['idade'][0])
         gestor = col1.selectbox("Gestor", gestores_lista, key="gestor", index=gestores_lista.index(dadoRecuperado['gestor'][0]) , help="Selecione o gestor")
@@ -54,8 +54,8 @@ with st.form(key='form-cadastro', clear_on_submit=True):
         col1, col2 = st.columns(2)
         nome = col1.text_input('Nome', key='nome', help='Digite o nome do colaborador', max_chars=100)
         idade = col2.number_input('Idade', key='idade', help='Digite a idade do colaborador', min_value=0, max_value=100, value=0)
-        gestor = col1.selectbox("Gestor", ['', 'Gilberto', 'Wellington', 'Joana', 'Joanir'], key="gestor", index=0, help="Selecione o gestor")
-        alocacao = col2.selectbox("Alocação", ['', 'Jurídico', 'Relacionamento', 'Santana', 'Financeiro', 'Administrativo', 'Itapipoca', 'Garanhuns'], key="alocacao", index=0, help="Selecione a alocação")
+        gestor = col1.selectbox("Gestor", gestores_lista, key="gestor", index=0, help="Selecione o gestor")
+        alocacao = col2.selectbox("Alocação", alocacoes_lista, key="alocacao", index=0, help="Selecione a alocação")
         btn = st.form_submit_button('Cadastrar', on_click=None)
 
         if btn:

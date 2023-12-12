@@ -7,12 +7,11 @@ from streamlit_extras.metric_cards import style_metric_cards
 import plotly.express as px
 import plotly.graph_objects as go
 
-
 st.set_page_config(
     page_title="Dashboard Satisfação",
     page_icon="📊",
     layout="wide",
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="collapsed",
 )
 
 feedback_df = FeedbackController.get_all_feedbacks()
