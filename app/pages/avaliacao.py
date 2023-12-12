@@ -22,7 +22,7 @@ gestor_nomes = list(colaborador_df["gestor"].unique())
 gestor = col1.selectbox("Gestor", gestor_nomes, key="gestor", index=0, help="Selecione o gestor")
 
 # Inserindo um campo de colaborador
-colaborador_nomes = list(colaborador_df[(colaborador_df['gestor']==gestor)]['nome'].unique())
+colaborador_nomes = sorted(list(colaborador_df['nome'].unique()), key=str.lower)
 colaborador = col2.selectbox("Colaborador", colaborador_nomes, index=0, key="colaborador", help="Selecione o colaborador")
 
 # Inseringo os campos para feedback
