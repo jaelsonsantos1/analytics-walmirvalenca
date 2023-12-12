@@ -41,11 +41,13 @@ style_metric_cards(border_left_color="#FFFFFF", background_color="#282738")
 new_df = pd.DataFrame(feedback_df[['gestor', 'feedback', 'alocacao']])
 new_df = new_df[(new_df['gestor']==find_gestor)] if find_gestor != 'Todos' else new_df
 
+grouped_df = new_df.groupby(['gestor', 'alocacao']).agg({'feedback': 'mean'}).reset_index()
+
 st.divider()
 st.write('## 🚀 Avaliação dos colaboradores')
 
 fig = px.treemap(
-    new_df,
+    grouped_df,
     path=[px.Constant("Walmir Valença"), 'alocacao'],
     values='feedback',
     color='feedback',
@@ -56,7 +58,7 @@ fig = px.treemap(
 
 fig.update_traces(
     go.Treemap(
-        textinfo='label+value',
+        textinfo=f'label+value',
         textfont=dict(size=14, family='Arial, sans-serif'),
         marker=dict(
             colorscale='purp',
