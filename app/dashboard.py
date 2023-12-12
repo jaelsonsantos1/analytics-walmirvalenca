@@ -37,7 +37,7 @@ col1.metric("Total de avaliações", total_avaliacoes, total_avaliacoes)
 col2.metric("Média das avaliações", f'{medean_feedbacks: .2f}', f'{medean_feedbacks: .2f}')
 col3.metric("Colaboradores ativos", total_colaboradores, total_colaboradores)
 
-style_metric_cards(border_left_color="#FFFFFF", background_color="#803DF5")
+style_metric_cards(border_left_color="#FFFFFF", background_color="#282738")
 
 new_df = pd.DataFrame(feedback_df[['gestor', 'feedback', 'alocacao']])
 new_df = new_df[(new_df['gestor']==find_gestor)] if find_gestor != 'Todos' else new_df
@@ -47,9 +47,9 @@ fig = px.treemap(
     path=[px.Constant("Walmir Valença"), 'alocacao'],
     values='feedback',
     color='feedback',
-    color_continuous_scale='purp',
+    color_continuous_scale=['#ff8383', '#9bff84'],
     title='Treemap - Avaliação dos colaboradores',
-    hover_data={'feedback': ':.2f'},
+    hover_data={'feedback': ':.2f'}
 )
 
 fig.update_traces(
@@ -58,10 +58,11 @@ fig.update_traces(
         textfont=dict(size=14, family='Arial, sans-serif'),
         marker=dict(
             colorscale='purp',
-            line=dict(width=2),
+            line=dict(width=0.5),
         ),
     )
 )
+
 
 fig.update_traces(marker=dict(cornerradius=5))
 fig.update_traces(textfont=dict(size=14, family='Arial, sans-serif'))    
