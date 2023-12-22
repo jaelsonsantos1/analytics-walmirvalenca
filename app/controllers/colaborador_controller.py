@@ -9,7 +9,7 @@ class ColaboradorController:
 
     def create_colaborador(self, nome, idade, gestor, alocacao):
         id = str(uuid.uuid4())
-        create_at = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        create_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         colaborador = self.colaborador_model(id, nome, idade, gestor, alocacao, create_at)
         colaborador_id = colaborador.create_colaborador()
         return colaborador_id
@@ -25,7 +25,7 @@ class ColaboradorController:
         return colaborador_df
 
     def update_colaborador(self, id, nome, idade, gestor, alocacao):
-        create_at = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        create_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         colaborador = self.colaborador_model(id, nome, idade, gestor, alocacao, create_at)
         colaborador_id = colaborador.update_colaborador()
         return colaborador_id

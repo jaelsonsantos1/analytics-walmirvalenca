@@ -9,7 +9,7 @@ class FeedbackController:
 
     def create_feedback(self, avaliador, avaliado, feedback, comentario):
         id = str(uuid.uuid4())
-        create_at = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        create_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         feedback = self.feedback_model(id, avaliador, avaliado, feedback, comentario, create_at)
         feedback_id = feedback.create_feedback()
         return feedback_id
