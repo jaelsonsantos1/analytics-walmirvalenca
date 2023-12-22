@@ -18,8 +18,8 @@ feedback_df = FeedbackController.get_all_feedbacks()
 col1, col2 = st.columns(2)
 
 # Inserindo um campo de avaliador
-gestor_nomes = list(colaborador_df["gestor"].unique())
-gestor = col1.selectbox("Gestor", gestor_nomes, key="gestor", index=0, help="Selecione o gestor")
+gestores_lista = sorted(['', 'Gilberto', 'Wellington', 'Joana', 'Joanir', 'Walmir', 'Alberto', 'Juvenal'])
+gestor = col1.selectbox("Gestor", gestores_lista, key="gestor", index=0, help="Selecione o gestor")
 
 # Inserindo um campo de colaborador
 colaborador_nomes = sorted(list(colaborador_df['nome'].unique()), key=str.lower)
@@ -41,8 +41,10 @@ comments = st.text_area("Comentário", key="comment", height=100, max_chars=100,
 
 btn = st.button("Enviar", key="register", help="Registra a avaliação no sistema", on_click=None)
 if btn:
-    feedback = FeedbackController().create_feedback(gestor, colaborador, voto, comments)
+    if gestor == '':
+        st.error("Selecione o gestor!")
+    else:
+        feedback = FeedbackController().create_feedback(gestor, colaborador, voto, comments)
 
-    st.success("Avaliação registrada com sucesso!")
-    st.balloons()
-    
+        st.success("Avaliação registrada com sucesso!")
+        st.balloons()
