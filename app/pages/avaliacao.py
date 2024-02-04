@@ -3,6 +3,7 @@ from controllers.colaborador_controller import ColaboradorController
 from controllers.feedback_controller import FeedbackController
 
 
+# Configurações da página
 st.set_page_config(
     page_title="Dashboard Satisfação",
     page_icon="📊",
@@ -10,8 +11,14 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-colaborador_df = ColaboradorController.get_all_colaboradores()
-feedback_df = FeedbackController.get_all_feedbacks()
+# Carrega os dados e armazena em cache
+@st.cache_resource()
+def loadData():
+    colaborador_df = ColaboradorController.get_all_colaboradores()
+    feedback_df = FeedbackController.get_all_feedbacks()
+    return colaborador_df, feedback_df
+
+colaborador_df, feedback_df = loadData()
 gestores_lista = sorted(['', 'Gilberto', 'Wellington', 'Joana', 'Joanir', 'Walmir', 'Alberto', 'Juvenal'])
 colaborador_nomes = sorted(list(colaborador_df['nome'].unique()), key=str.lower)
 btn_voto_nulo = None
