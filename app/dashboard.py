@@ -1,11 +1,11 @@
 import pandas as pd
 import streamlit as st
 from pages import *
-from controllers.colaborador_controller import ColaboradorController
-from controllers.feedback_controller import FeedbackController
+from controllers.colaborador_controller import ColaboradorController as cc
 from streamlit_extras.metric_cards import style_metric_cards
 import plotly.express as px
 import plotly.graph_objects as go
+import squarify
 
 st.set_page_config(
     page_title="Dashboard Satisfação",
@@ -14,62 +14,13 @@ st.set_page_config(
     initial_sidebar_state="collapsed",
 )
 
-feedback_df = FeedbackController.get_all_feedbacks()
-colaborador_df = ColaboradorController.get_all_colaboradores()
+def load_avaliacoes():
+    return cc.get_all_avaliacoes ()
 
 st.title("📊 Dashboard Satisfação")
 
-gestor_nomes = feedback_df['gestor'].sort_values().unique()
-gestor_nomes = ['Todos'] + gestor_nomes.tolist()
-alocacao = feedback_df['alocacao'].sort_values().unique()
+# Criar 3 cards para exibir a média das notas de produtividade e engajamento e a quantidade de colaboradores
+avaliacoes = load_avaliacoes()
 
-st.sidebar.title('Filtros')
-find_gestor = st.sidebar.selectbox("Selecione o avaliador", gestor_nomes, placeholder="Selecione o gestor")
+st.dataframe(avaliacoes)
 
-col1, col2, col3 = st.columns(3)
-
-medean_feedbacks = feedback_df[feedback_df['gestor'] == find_gestor]['feedback'].mean() if find_gestor != 'Todos' else feedback_df['feedback'].mean()
-total_avaliacoes = len(feedback_df[feedback_df['gestor'] == find_gestor]) if find_gestor != 'Todos' else len(feedback_df)
-total_colaboradores = colaborador_df.shape[0]
-
-col1.metric("Total de avaliações", total_avaliacoes, total_avaliacoes)
-col2.metric("Média das avaliações", f'{medean_feedbacks: .2f}', f'{medean_feedbacks: .2f}')
-col3.metric("Colaboradores ativos", total_colaboradores, total_colaboradores)
-
-style_metric_cards(border_left_color="#FFFFFF", background_color="#282738")
-
-new_df = pd.DataFrame(feedback_df[['gestor', 'feedback', 'alocacao']])
-new_df = new_df[(new_df['gestor']==find_gestor)] if find_gestor != 'Todos' else new_df
-
-grouped_df = new_df.groupby(['gestor', 'alocacao']).agg({'feedback': 'mean'}).reset_index()
-
-st.divider()
-st.write('## 🚀 Avaliação dos colaboradores')
-
-fig = px.treemap(
-    grouped_df,
-    path=[px.Constant("Walmir Valença"), 'alocacao'],
-    values='feedback',
-    color='feedback',
-    color_continuous_scale=['#ff8383', '#9bff84'],
-    hover_data={'feedback': ':.2f'},
-    height=600
-)
-
-fig.update_traces(
-    go.Treemap(
-        textinfo=f'label+value',
-        textfont=dict(size=14, family='Arial, sans-serif'),
-        marker=dict(
-            colorscale='purp',
-            line=dict(width=0.5),
-        ),
-    )
-)
-
-
-fig.update_traces(marker=dict(cornerradius=5))
-fig.update_traces(textfont=dict(size=14, family='Arial, sans-serif'))    
-
-fig.update_layout(margin = dict(t=50, l=50, r=50, b=25))
-st.plotly_chart(fig, use_container_width=True)

@@ -79,6 +79,8 @@ with st.form(key='form-cadastro', clear_on_submit=True):
         nome_setor_selecionado = col2.selectbox("Alocação", ['', *[nome for id, nome in setores_lista]], key="alocacao", index=0, help="Selecione a alocação")
         id_setor_selecionado = [id for id, nome in setores_lista if nome == nome_setor_selecionado][0] if nome_setor_selecionado != '' else None
         
+        st.write("---")
+
         btn = st.form_submit_button('Cadastrar', on_click=None)
 
         if btn:
