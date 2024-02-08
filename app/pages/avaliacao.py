@@ -59,8 +59,7 @@ if btn:
         st.error("Preencha todos os campos!")
     else:
         dc().create_desempenho(colaborador_id, gestor_id, voto_desempenho, comments)
-        st.success("Avaliação de desempenho registrada com sucesso!")
         pc().create_produtividade(colaborador_id, gestor_id, voto_produtividade, comments_produtividade, bateu_meta)
-        st.success("Avaliação de produtividade registrada com sucesso!")
+        st.success("Avaliação registrada com sucesso!")
 
         st.balloons()

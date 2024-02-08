@@ -34,6 +34,8 @@ if paramId == {}:
     itens_por_pagina = 10
     tot_pag = (len(produtividades) - 1) // itens_por_pagina + 1
     col1, col2 = st.columns(2)
+    if tot_pag == 0:
+        tot_pag = 1
     pagina = col1.number_input(label='Página carregadas', min_value=1, max_value=tot_pag, value=1)
     st.write(f'Página {pagina} de {tot_pag}')
     # Mostrar a página atual/ total de páginas
