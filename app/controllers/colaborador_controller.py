@@ -37,7 +37,7 @@ class ColaboradorController:
 
     def get_all_avaliacoes():
         avaliacoes = ColaboradorModel.get_all_avaliacoes()
-        avaliacoes_lista = pd.DataFrame(avaliacoes, columns=['id', 'nome', 'gestor', 'setor', 'nota_produtividade', 'atingiu_meta', 'nota_engajamento'])
+        avaliacoes_lista = pd.DataFrame(avaliacoes, columns=['ID', 'Colaborador', 'Gestor', 'Setor', 'Produtividade', 'Atingiu Meta', 'Engajamento'])
         return avaliacoes_lista
 
     def get_colaborador_by_setor(id_setor):

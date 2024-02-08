@@ -22,5 +22,4 @@ st.title("📊 Dashboard Satisfação")
 # Criar 3 cards para exibir a média das notas de produtividade e engajamento e a quantidade de colaboradores
 avaliacoes = load_avaliacoes()
 
-st.dataframe(avaliacoes)
-
+st.dataframe(avaliacoes, hide_index=True)
