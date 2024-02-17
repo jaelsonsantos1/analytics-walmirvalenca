@@ -62,7 +62,8 @@ if paramId == {}:
         on_click_delete = columns[6].button(":red[Excluir]", f'btnExcluir-{item.Index}')
         if on_click_delete:
             try:
-                dc.delete_desempenho(id=item.id)
+                st.cache_resource.clear()
+                dc().delete_desempenho(id=item.id)
                 st.rerun()
             except Exception as e:
                 st.error(f'Erro ao excluir o feedback: {e}')

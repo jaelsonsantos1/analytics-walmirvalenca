@@ -7,9 +7,9 @@ class ProdutividadeController:
         self.produtividade_model = ProdutividadeModel
     
     def create_produtividade(self, id_colaborador, id_gestor, nota_avaliacao, comentario, atingiu_meta):
-        id = uuid.uuid4().int & (1<<10)-1
-        produtividade = self.produtividade_model(id, id_colaborador, id_gestor, nota_avaliacao, comentario, atingiu_meta)
-        return produtividade.create_produtividade()
+        id = uuid.uuid4().int & (1<<20)-1
+        self.produtividade_model(id, id_colaborador, id_gestor, nota_avaliacao, comentario, atingiu_meta).create_produtividade()
+        return id
     
     def get_all_produtividades():
         produtividades = ProdutividadeModel.get_all_produtividades()

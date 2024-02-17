@@ -1,0 +1,27 @@
+* Formulário engajamento
+- Como você avalia o desempenho do colaborador;
+- Campo de setor que filtre o campo colaboradores;
+- Adionar uma opção nos votos (impossivel opinar).
+
+* Formulário de produtividade
+- Avaliação qualidade (0 a 5);
+- Campo de comentário (Obrigatório caso a nota <= 3);
+- Campo de bateu meta;
+
+* Gestão liderança
+- Filtro colaborador;
+- Filtro gestor;
+- FIltro setor.
+
+* Dashboard
+- Mostrar a média de cada pessoa avaliada no setor quando clicar no setor.
+
+
+** Página avaliação
+- Os dois formulários na mesma página
+- Salvar em um único botão
+
+
+SELECT * FROM colaborador as C
+LEFT JOIN engajamento as E ON C.id_colaborador_pk = E.id_colaborador_fk
+LEFT JOIN produtividade as P ON C.id_colaborador_pk = E.id_colaborador_fk

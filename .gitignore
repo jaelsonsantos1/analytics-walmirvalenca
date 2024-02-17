@@ -10,6 +10,7 @@ venv/
 # Ignore IDE files
 .vscode/
 .idea/
+sql/
 
 # Ignore package build files
 dist/

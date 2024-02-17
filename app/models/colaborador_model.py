@@ -18,19 +18,24 @@ class ColaboradorModel:
         db.connection.commit()
         db.close_connection()
         return self.id
-
+    
     # Read
     @staticmethod
-    def get_all_colaboradores():
-        db = Database()
-        db.cursor.execute(f"""
-            SELECT C.id_colaborador_pk, C.nome_colaborador, C.idade, C.id_gestor_fk, G.nome_gestor, C.id_setor_fk, S.nome_setor, C.created_at FROM colaborador C
-                LEFT JOIN gestor G ON C.id_gestor_fk = G.id_gestor_pk
-                LEFT JOIN setor S ON C.id_setor_fk = S.id_setor_pk
-        """)
-        colaboradores = db.cursor.fetchall()
-        db.close_connection()
-        return colaboradores
+    def get_all_colaboradores(page, page_size):
+        try:
+            db = Database()
+
+            offset = (page - 1) * page_size
+
+            query = f"SELECT * FROM colaboradores LIMIT {page_size} OFFSET {offset};"
+            db.cursor.execute(query)
+
+            colaboradores = db.cursor.fetchall()
+            db.close_connection()
+
+            return colaboradores
+        except Exception as e:
+            return e
     
     @staticmethod
     def get_colaborador_by_id(id):
@@ -44,7 +49,7 @@ class ColaboradorModel:
         colaborador = db.cursor.fetchone()
         db.close_connection()
         return colaborador
-    
+
     @staticmethod
     def get_colaborador_by_setor(id_setor):
         db = Database()
@@ -62,7 +67,7 @@ class ColaboradorModel:
     def get_all_gestores():
         db = Database()
         db.cursor.execute(f"""
-            SELECT id_gestor_pk, nome_gestor FROM gestor
+            SELECT * FROM gestores;
         """)
         gestores = db.cursor.fetchall()
         db.close_connection()
@@ -72,7 +77,7 @@ class ColaboradorModel:
     def get_all_setores():
         db = Database()
         db.cursor.execute(f"""
-            SELECT id_setor_pk, nome_setor FROM setor;
+            SELECT * FROM setores;
         """)
         setores = db.cursor.fetchall()
         db.close_connection()
@@ -82,12 +87,7 @@ class ColaboradorModel:
     def get_all_avaliacoes():
         db = Database()
         db.cursor.execute(f"""
-            SELECT C.id_colaborador_pk, C.nome_colaborador, G.nome_gestor, S.nome_setor, P.nota_avaliacao as nota_produtividade, P.atingiu_meta, E.nota_avaliacao as nota_engajamento
-            FROM colaborador as C
-                LEFT JOIN engajamento as E ON C.id_colaborador_pk = E.id_colaborador_fk
-                LEFT JOIN produtividade as P ON C.id_colaborador_pk = E.id_colaborador_fk
-                LEFT JOIN gestor as G ON C.id_gestor_fk = G.id_gestor_pk
-                LEFT JOIN setor as S ON C.id_setor_fk = S.id_setor_pk
+            SELECT * FROM avaliacoes;
         """)
         avaliacoes = db.cursor.fetchall()
         db.close_connection()
@@ -118,3 +118,5 @@ class ColaboradorModel:
         db.connection.commit()
         db.close_connection()
         return id
+    
+# Path: app/models/engajamento_model.py

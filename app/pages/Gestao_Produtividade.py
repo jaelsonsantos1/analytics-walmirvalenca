@@ -62,7 +62,6 @@ if paramId == {}:
         on_click_delete = columns[6].button(":red[Excluir]", f'btnExcluir-{item.Index}')
         if on_click_delete:
             try:
-                print(item.id)
                 pc().delete_produtividade(id=item.id)
                 st.rerun()
             except Exception as e:

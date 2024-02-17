@@ -38,7 +38,7 @@ class ProdutividadeModel:
     def delete_produtividade(id):
         db = Database()
         db.cursor.execute(f"""
-            DELETE FROM produtividade WHERE id = '{id}';
+            DELETE FROM produtividade WHERE id_produtividade_pk = '{id}';
         """)
         db.connection.commit()
         db.close_connection()
