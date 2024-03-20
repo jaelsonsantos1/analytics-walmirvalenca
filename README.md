@@ -41,6 +41,15 @@ Execute o seguinte comando para instalar as bibliotecas necessárias:
 pip install -r requirements.txt
 ```
 
+## Configurando variáves de ambiente
+```bash
+DB_HOST=
+DB_DATABASE=
+DB_PORT=
+DB_USER=
+DB_PASSWORD=
+```
+
 ## Como Executar
 Certifique-se de ter o ambiente virtual ativado e as dependências instaladas. Execute o aplicativo usando o seguinte comando:
 
